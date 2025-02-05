@@ -3,8 +3,13 @@
 Frontend Web App Development
 
 - Module 1
-  - [Lessons](./module_1/)
+  - [Lesson Notes](./module_1/README.md)
   - [Test Site](https://deleomike.github.io/EN.605.787/module_1/test_site)
+- Module 2
+  - [Lesson Notes](./module_2/README.md)
+  - HW Solution
+    - [Code](./module_2/solution/)
+    - [Site](#)
 
 Course Lecture Materials
 
@@ -22,7 +27,11 @@ Standup the project files with browser sync
 make sync
 ```
 
-[For HTML validation](https://validator.w3.org)
+## Helpful Links
+
+- [For HTML validation](https://validator.w3.org)
+- [For Common Font Families](http://www.w3schools.com/cssref/css_websafe_fonts.asp)
+- [CSS & HTML Compatibility](https://caniuse.com)
 
 ## Assignments Policy
 
