@@ -16,10 +16,7 @@
 
 .food-description {
     clear: both;
-    /* position: relative;
-    top: 32px; */
     margin: 55px 10px 10px 10px;
-    /* background-color: red; */
     height: 100px;
     overflow-y: auto;
 }
@@ -42,14 +39,9 @@
     border-right: 0px;
     border-top: 0px;
 
+    /* Positioning */
     float: right;
     padding: 0px 30px 0px 30px;
-
-    /* Positioning */
-    /* position: absolute;
-    top: 0px;
-    right: 0px;
-    padding: 0px 30px 0px 30px; */
 }
 
 #title {
@@ -132,7 +124,6 @@
 @media (min-width: 768px) and (max-width: 991px) {
     .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
         float: left;
-        /* border: 1px solid green; */
     }
     .col-md-1 {
         width: 8.33%;
@@ -189,6 +180,10 @@
         border-left: 0px;
         text-align: center;
         width: 100%;
+    }
+
+    .food-description {
+        margin-top: 100px;
     }
 
     #alt-chicken, #alt-beef, #alt-sushi {
