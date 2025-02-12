@@ -1,0 +1,59 @@
+.food-item {
+  border: 1px solid black;
+  position: relative;
+  background-color: lightgray;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.food-name {
+  text-align: center;
+}
+
+.food-description {
+  margin: 10px;
+}
+
+
+/* #title {
+  text-align: center;
+} */
+
+/* Website Name */
+.navbar-brand h1 {
+  /* font-size: 1.5em; */
+  text-transform: capitalize;
+  float: left;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: .75;
+}
+
+#nav-list {
+margin-top: 10px;
+}
+
+/* Nav Items */
+li a {
+  background-color: white;
+  border: 1px solid black;
+  border-bottom: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Las nav item */
+li:nth-last-child(1) a {
+  border-bottom: 1px solid black;
+}
+
+
+
+.navbar-header button.navbar-toggle {
+  clear: both;
+  margin-top: -30px;
+}
+
+/*  */
+
+

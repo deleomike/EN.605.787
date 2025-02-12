@@ -641,3 +641,108 @@ You could have a server side technology determine a mobile version of the site o
 12 column grid responsive layout because of the factors of 12
 
 Use large to describe the behavior for large devices, medium for medium devices. At different sizes those styles may or not exist.
+
+## Intro to Bootstrap
+
+[Link to Lecture 25](../course_materials/fullstack-course4/examples/Lecture25/)
+
+Bootstrap is the most popular HTML, CSS and JS framework for developing responsive mobile first projects on the web
+- plan mobile from the start
+- CSS framework for mobile is ready
+
+Number 1 complaint
+- Too big, too bloated
+  - Can use selective download
+- You could write your own targetted/smaller framework
+  - But it will take you a lot longer to write it
+
+When downloading it
+- You get
+  - CSS
+    - Min is the minified version
+  - Fonts
+  - JS
+    - Min is the minified version
+
+Bootstrap requires JQuery
+- theres 1.x and 2.x
+- No real difference except 2 doesn't support IE 6,7,8
+
+
+```html
+...
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-with, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    </head>
+<body>
+
+  <!-- jQuery (Bootstrap JS plugins depend on it) -->
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
+...
+```
+
+## Bootstrap Grid System
+
+[Link to Lecture 26](../course_materials/fullstack-course4/examples/Lecture26/)
+
+Basic Bootstrap grid layout
+```html
+<div class="container">
+    <div class="row">
+        <div class="col=md-4">col-1</div>
+    </div>
+</div>
+```
+
+Your grid must be in a `container` or `container-fluid` class
+- The fluid class stretches the layout to full width of the browser and adds consistent padding
+
+The `row` class creates horizintal groups if columns and negative left/right margins to counteract the padding of the container class (so that there is separation).
+
+<img src="./solution/resources/nea.png"/>
+
+Content alignment is very important.
+
+every bootstrap column class is `col-SIZE-SPAN`
+- Size: Screen width range identifier
+  - LG: 1200px >
+  - Columns will collapse below that width
+    - Unless another rule applies
+- Span: How many column elements should this span
+  - 1 through 12
+
+```html
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-6">Col 1</div>
+      <div class="col-md-4 col-sm-6">Col 2</div>
+      <div class="col-md-4 col-sm-6">Col 3</div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-sm-6">Col 1</div>
+      <div class="col-md-4 col-sm-6">Col 2</div>
+      <div class="col-md-4 col-sm-6">Col 3</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6">Col 1</div>
+      <div class="col-xs-6">Col 2</div>
+      <div class="col-xs-6">Col 3</div>
+    </div>
+  </div>
+```
+
+Collapse ~ Stacking
+
+col-xs will keep the layout no matter the screen size
+
+
+[Bootstrap Grid](https://getbootstrap.com/docs/3.4/css#/grid-options)

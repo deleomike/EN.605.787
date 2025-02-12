@@ -32,3 +32,8 @@ make sync
 - [For HTML validation](https://validator.w3.org)
 - [For Common Font Families](http://www.w3schools.com/cssref/css_websafe_fonts.asp)
 - [CSS & HTML Compatibility](https://caniuse.com)
+- [Balsamiq Mockup](https://balsamiq.com)
+- [Google Fonts](https://www.google.com/fonts)
+- Placeholders
+  - [Dummy Image](https://dummyimage.com)
+  - [PicSum](https://picsum.photos)
