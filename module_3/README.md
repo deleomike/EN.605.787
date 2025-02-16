@@ -611,3 +611,472 @@ The href is pointing to a different html file
 
 ...
 ```
+
+## Coding the Footer
+
+[Link to Lecture 36](../course_materials/fullstack-course4/examples/Lecture36/)
+
+We want the footer to stack on a small screen
+
+Add an html comment at the end of a div telling you what this is for
+
+Use a row div, and then three columns across with each content zections
+- hours
+- address
+- testimonials
+
+```css
+/* Footer */
+.panel-footer {
+    margin-top: 30px;
+    padding-top: 35px;
+    padding-bottom: 30px;
+    background-color: #222;
+    border-top: 0;
+}
+
+/* Targets the row in the footer */
+.panel-footer div.row {
+    margin-bottom: 35px;
+}
+
+#hours, #address {
+    line-height: 2;
+}
+
+/* 30% increase to any content in spans */
+#hours >span, #address > span {
+    font-size: 1.3em;
+}
+
+#address p {
+    color: #557C3E;
+    font-size: .8em;
+    line-height: 1.8;
+}
+
+#testimonials {
+    font-style: italic;
+}
+
+#testimonials p:nth-child(2) {
+    margin-top: 25px;
+}
+
+@media (max-width: 767px) {
+    .panel-footer section {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .panel-footer section:nth-child(3) {
+        margin-bottom: 0px;
+    }
+    .panel-footer section hr {
+        width: 50%;
+    }
+}
+```
+
+```html
+...
+
+    </div><!-- End of #home-tiles -->
+  </div><!-- End of #main-content -->
+
+  <footer class="panel-footer">
+    <div class="container">
+      <div class="row">
+        <section id="hours" class="col-sm-4">
+          <span>Hours:</span><br>
+          Sun-Thurs: 11:15am - 10:00pm<br>
+          Fri: 11:15am - 2:30pm<br>
+          Saturday Closed
+          <hr class="visible-xs">
+        </section>
+        <section id="address" class="col-sm-4">
+          <span>Address:</span><br>
+          7105 Reisterstown Road<br>
+          Baltimore, MD 21215
+          <p>* Delivery area within 3-4 miles, with minimum order of $20 plus $3 charge for all deliveries.</p>
+          <hr class="visible-xs">
+        </section>
+        <section id="testimonials" class="col-sm-4">
+          <p>"The best Chinese restaurant I've been to! And that's saying a lot, since I've been to many!"</p>
+          <p>"Amazing food! Great service! Couldn't ask for more! I'll be back again and again!"</p>
+        </section>
+      </div>
+      <div class="text-center">&copy; Copyright David Chu's China Bistro 2016</div>
+    </div>
+  </footer>
+
+...
+```
+
+## Coding the Menu Categories
+
+[Link to Lecture 37](../course_materials/fullstack-course4/examples/Lecture37/)
+
+We need to let the user know where they are
+
+All the content goes in one row
+
+How do you do a six cell layout? Each div needs to cover 2 cells `col-md-2`. but that doesnt look good so we use `col-md-3`
+
+We can define a new breakpoint, `xxs`
+
+```css
+.category-tile { 
+  position: relative;
+  border: 2px solid #3F0C1F;
+  overflow: hidden;
+  /* Same trick from before on centering */
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 15px;
+}
+/* Trying to give the similar style as the homepage boxes */
+.category-tile span {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #fff;
+  opacity: .8;
+}
+/* Make it look clickable */
+.category-tile:hover {
+  box-shadow: 0 1px 5px 1px #cccccc;
+}
+
+#menu-categories-title + div {
+  margin-bottom: 50px;
+}
+
+/********** Super extra small devices Only :-) (e.g., iPhone 4) **********/
+@media (max-width: 479px) {
+  /* Header */
+  
+  /* Home page */
+  #menu-tile, #specials-tile {
+    width: 280px;
+    margin: 0 auto 15px;
+  }
+
+  .col-xxs-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: left;
+    width: 100%;
+  }
+}
+```
+
+```html
+<!-- Different html -->
+...
+<!-- Header -->
+<div id="main-content" class="container">
+    <!-- Let the user know the page they're on -->
+    <h2 id="menu-categories-title" class="text-center">Menu Categories</h2>
+    <div class="text-center">
+      Substituting white rice with brown rice or fried rice after 3:00pm will be $1.50 for a pint and $2.50 for a quart.
+    </div>
+
+    <section class="row">
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
+        <a href="single-category.html">
+          <div class="category-tile">
+            <img width="200" height="200" src="images/menu/B/B.jpg" alt="Lunch">
+            <span>Lunch</span>
+          </div>
+        </a>
+      </div>
+    </section>
+<!-- Footer -->
+...
+```
+
+## Coding the Single Menu Category Page
+
+[Link to Lecture 38](../course_materials/fullstack-course4/examples/Lecture38/)
+
+bootstrap class `active` is used for if a button has been clicked. So we set it to show the user is at this page for example.
+
+we choose small for the item photo. When the screen is small or large we want it to be horizontal
+
+`img-responsive` lets the image responsively change size with the screen.
+- alt is to use a background image with different sizes.
+- Not needed here because its already a small image
+
+What happens when the description gets taller than the row? Everything gets messed up in the grid.
+- You can restrict the number of characters or clip. This is a hard/bad ask of a business owner.
+- This is a `responsive column reset`
+  - `<div class="clearfix visible-md-block"></div>`
+
+```css
+/* The single cell grid */
+.menu-item-tile {
+  /* separate from the next row */
+  margin-bottom: 25px;
+}
+/* Only shows up on xs */
+.menu-item-tile hr {
+  width: 80%;
+}
+/* align to the right, and reduce the Top.bottom margin */
+.menu-item-tile .menu-item-price {
+  font-size: 1.1em;
+  text-align: right;
+  margin-top: -15px;
+  margin-right: -15px;
+}
+.menu-item-tile .menu-item-price span {
+  font-size: .6em;
+}
+/* creates separation for the photo */
+.menu-item-photo {
+  position: relative;
+  border: 2px solid #3F0C1F; 
+  overflow: hidden;
+  padding: 0;
+  margin-right: -15px;
+  margin-left: auto;
+  margin-bottom: 20px;
+  max-width: 250px;
+}
+/* Item Identifier */
+.menu-item-photo div {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  background-color: #557c3e;
+  text-align: center;
+}
+.menu-item-description {
+  padding-right: 30px;
+}
+h3.menu-item-title {
+  margin: 0 0 10px;
+}
+.menu-item-details {
+  font-size: .9em;
+  font-style: italic;
+}
+
+/* Extra Small Media query */
+/********** Extra small devices only **********/
+@media (max-width: 767px) {
+  #menu-tile, #specials-tile {
+    width: 360px;
+    margin: 0 auto 15px;
+  }
+
+  .menu-item-photo {
+    margin-right: auto;
+  }
+  .menu-item-tile .menu-item-price {
+    text-align: center;
+  }
+  .menu-item-description {
+    text-align: center;
+}
+```
+```html
+<!-- Different html -->
+...
+<!-- Header -->
+<div id="main-content" class="container">
+    <h2 id="menu-categories-title" class="text-center">Lunch Menu</h2>
+    <div class="text-center">Lunch is not served until after 1pm.</div>
+
+    <section class="row">
+      <div class="menu-item-tile col-md-6">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="menu-item-photo">
+              <div>D01</div>
+              <img class="img-responsive" width="250" height="150" src="images/menu/B/B-1.jpg" alt="Item">
+            </div>
+            <div class="menu-item-price">$10.95<span> (pint)</span> $14.95 <span>(quart)</span></div>
+          </div>
+          <div class="menu-item-description col-sm-7">
+            <h3 class="menu-item-title">Veal with Mixed Vegetables</h3>
+            <p class="menu-item-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque inventore esse minima incidunt impedit. Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.</p>
+          </div>
+        </div>
+        <hr class="visible-xs">
+      </div>
+
+      <div class="menu-item-tile col-md-6">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="menu-item-photo">
+              <div>D02</div>
+              <img class="img-responsive" width="250" height="150" src="images/menu/B/B-1.jpg" alt="Item">
+            </div>
+            <div class="menu-item-price">$10.95<span> (pint)</span> $14.95 <span>(quart)</span></div>
+          </div>
+          <div class="menu-item-description col-sm-7">
+            <h3 class="menu-item-title">Veal with Mixed Vegetables</h3>
+            <p class="menu-item-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque inventore esse minima incidunt impedit. Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.</p>
+          </div>
+        </div>
+        <hr class="visible-xs">
+      </div>
+      <!-- Add after every 2nd menu-item-tile -->
+      <div class="clearfix visible-lg-block visible-md-block"></div>
+
+      <div class="menu-item-tile col-md-6">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="menu-item-photo">
+              <div>D03</div>
+              <img class="img-responsive" width="250" height="150" src="images/menu/B/B-1.jpg" alt="Item">
+            </div>
+            <div class="menu-item-price">$10.95<span> (pint)</span> $14.95 <span>(quart)</span></div>
+          </div>
+          <div class="menu-item-description col-sm-7">
+            <h3 class="menu-item-title">Veal with Mixed Vegetables</h3>
+            <p class="menu-item-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque inventore esse minima incidunt impedit. Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.</p>
+          </div>
+        </div>
+        <hr class="visible-xs">
+      </div>
+
+      <div class="menu-item-tile col-md-6">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="menu-item-photo">
+              <div>D04</div>
+              <img class="img-responsive" width="250" height="150" src="images/menu/B/B-1.jpg" alt="Item">
+            </div>
+            <div class="menu-item-price">$10.95<span> (pint)</span> $14.95 <span>(quart)</span></div>
+          </div>
+          <div class="menu-item-description col-sm-7">
+            <h3 class="menu-item-title">Veal with Mixed Vegetables</h3>
+            <p class="menu-item-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque inventore esse minima incidunt impedit. Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.</p>
+          </div>
+        </div>
+        <hr class="visible-xs">
+      </div>
+      <!-- Add after every 2nd menu-item-tile -->
+      <div class="clearfix visible-lg-block visible-md-block"></div>
+
+      <div class="menu-item-tile col-md-6">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="menu-item-photo">
+              <div>D05</div>
+              <img class="img-responsive" width="250" height="150" src="images/menu/B/B-1.jpg" alt="Item">
+            </div>
+            <div class="menu-item-price">$10.95<span> (pint)</span> $14.95 <span>(quart)</span></div>
+          </div>
+          <div class="menu-item-description col-sm-7">
+            <h3 class="menu-item-title">Veal with Mixed Vegetables</h3>
+            <p class="menu-item-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque inventore esse minima incidunt impedit. Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.</p>
+          </div>
+        </div>
+        <hr class="visible-xs">
+      </div>
+
+      <div class="menu-item-tile col-md-6">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="menu-item-photo">
+              <div>D06</div>
+              <img class="img-responsive" width="250" height="150" src="images/menu/B/B-1.jpg" alt="Item">
+            </div>
+            <div class="menu-item-price">$10.95<span> (pint)</span> $14.95 <span>(quart)</span></div>
+          </div>
+          <div class="menu-item-description col-sm-7">
+            <h3 class="menu-item-title">Veal with Mixed Vegetables</h3>
+            <p class="menu-item-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque inventore esse minima incidunt impedit. Asperiores, voluptatem. Sint aspernatur provident, rem odio dolorem eaque voluptatibus modi reprehenderit minima, itaque cupiditate totam.</p>
+          </div>
+        </div>
+        <hr class="visible-xs">
+      </div>
+      <!-- Add after every 2nd menu-item-tile -->
+      <div class="clearfix visible-lg-block visible-md-block"></div>
+
+    </section>
+
+<!-- Footer -->
+...
+```
+
+## Testing the Mobile Version on a real phone
+
+Should have a home button the nav.
+
+Tapping on the "lunch menu" should collapse the nav

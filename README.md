@@ -15,6 +15,10 @@ Frontend Web App Development
   - HW Solution
     - [Code](./module_3/solution/)
     - [Site](https://deleomike.github.io/EN.605.787/module_3/solution/)
+- Module 4 - Introduction to Javascript
+  - [Lesson Notes](./module_4/README.md)
+  - HW Solution
+    - [Code](./module_4/solution)
 
 Course Lecture Materials
 
