@@ -19,6 +19,8 @@ Frontend Web App Development
   - [Lesson Notes](./module_4/README.md)
   - HW Solution
     - [Code](./module_4/solution)
+    - [Instructions](./module_4/solution/README.md)
+    - [Site](https://deleomike.github.io/EN.605.787/module_4/solution/)
 
 Course Lecture Materials
 
