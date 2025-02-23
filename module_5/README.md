@@ -298,6 +298,33 @@ HTTP/1.1 200 OK
 
 Basically a client/server communication technique
 
+Used to stand for:
+Asynchronous Javascript and XML
+
+While it started as XML, very few apps use it
+- plain text (and html) and JSONis used instead
+
+It used to be that the entire page was sent to the server when a request was sent
+
+The change tonow is that a small piece of data is returned that is inserted.
+
+Synchronous is one execution at a time.
+
+Asynchronous is more than one instruction at a time.
+
+How is AJAX async if JS is sync?
+- In the browser
+  - There is an event queue in the browser
+  - There is an HTML rendering engine
+  - JS engine
+  - WebGL
+  - HTTP Requestor
+    - This is asynchronous
+
+AJAX request uses a special object to reach out to the HTTP requestor, and the code continues.
+- The JS function address is the response handler.
+- There is another section of code used as a callback handler for when it finishes
+
 ```js
 // script.js
 // Event handling
@@ -312,6 +339,7 @@ document.addEventListener("DOMContentLoaded",
         $ajaxUtils
           .sendGetRequest("data/name.txt", 
             function (request) {
+                // You have to put all asnycnhronous logic for setting here
               var name = request.responseText;
 
               document.querySelector("#content")
@@ -326,6 +354,8 @@ document.addEventListener("DOMContentLoaded",
 
 ```js
 // ajax-utils.js
+
+// IIFE
 (function (global) {
 
 // Set up a namespace for our utility
@@ -351,12 +381,16 @@ function getRequestObject() {
 // Makes an Ajax GET request to 'requestUrl'
 ajaxUtils.sendGetRequest = 
   function(requestUrl, responseHandler) {
+    // Get the request object
     var request = getRequestObject();
     request.onreadystatechange = 
+      // This is the function that gets called
       function() { 
         handleResponse(request, responseHandler); 
       };
+    // False will make this synchronous
     request.open("GET", requestUrl, true);
+    // Request parameters would go here instead of null
     request.send(null); // for POST only
   };
 
@@ -366,6 +400,7 @@ ajaxUtils.sendGetRequest =
 // and not an error
 function handleResponse(request,
                         responseHandler) {
+  //   If the request is ready (4)
   if ((request.readyState == 4) &&
      (request.status == 200)) {
     responseHandler(request);
@@ -407,6 +442,32 @@ global.$ajaxUtils = ajaxUtils;
 ## Processing JSON
 
 [Link to Lecture 58](../course_materials/fullstack-course4/examples/Lecture58/)
+
+JSON is a commonly used format.
+- JavaScript Object Notation
+- Lightweight data interchange format
+- Easy for humans to read and write
+- Easy for machines to parse and generate
+- Completely independent of any language
+
+Syntax:
+- Subset of JS object literal
+- Property names must be in double quotes
+- string value must be in double quotes
+
+```json
+{
+    "name": "John",
+    "likesFood": true,
+    "numberOfDisplays": 3
+}
+```
+
+JSON is not a javascrcipt object literal, it is just a string
+
+`var obj = JSON.parse(jsonString);`
+
+`var str = JSON.stringify(obj);`
 
 ```js
 // script.js
@@ -519,22 +580,462 @@ global.$ajaxUtils = ajaxUtils;
 
 [Link to Lecture 59](../course_materials/fullstack-course4/examples/Lecture59/)
 
+Clicking anywhere else does not close the drop down.
+
+So when the area loses focus (onBlur)
+
+We want the funcionality to occur when loaded. Bootstrap uses JQuery. The JQuery function name is `$`. So its dollar sign, and then something is executed. The `$` can also serve as a selector
+
+`.blur` is really just `onblur`
+
+When you click outside, the blur event occurs
+```js
+$(function () { // Same as document.addEventListener("DOMContentLoaded"...
+
+  // Same as document.querySelector("#navbarToggle").addEventListener("blur",...
+  $("#navbarToggle").blur(function (event) {
+    // Grab the width of the browser window itself
+    var screenWidth = window.innerWidth;
+    if (screenWidth < 768) {
+      $("#collapsable-nav").collapse('hide');
+    }
+  });
+
+  // In Firefox and Safari, the click event doesn't retain the focus
+  // on the clicked button. Therefore, the blur event will not fire on
+  // user clicking somewhere else in the page and the blur event handler
+  // which is set up above will not be called.
+  // Refer to issue #28 in the repo.
+  // Solution: force focus on the element that the click event fired on
+  $("#navbarToggle").click(function (event) {
+    $(event.target).focus();
+  });
+});
+```
+
 ## Dynamically Loading Home View Content
 
 [Link to Lecture 60](../course_materials/fullstack-course4/examples/Lecture60/)
+
+There is a new folder called `snippets` which has subsections of the site.
+
+XHR: XML HTTP Requests
+```js
+...
+(function (global) {
+
+var dc = {};
+
+var homeHtml = "snippets/home-snippet.html";
+
+// Convenience function for inserting innerHTML for 'select'
+var insertHtml = function (selector, html) {
+  var targetElem = document.querySelector(selector);
+  targetElem.innerHTML = html;
+};
+
+// Show loading icon inside element identified by 'selector'.
+var showLoading = function (selector) {
+  var html = "<div class='text-center'>";
+  html += "<img src='images/ajax-loader.gif'></div>";
+  insertHtml(selector, html);
+};
+
+// On page load (before images or CSS)
+document.addEventListener("DOMContentLoaded", function (event) {
+
+// On first load, show home view
+showLoading("#main-content");
+$ajaxUtils.sendGetRequest(
+  homeHtml,
+  function (responseText) {
+    document.querySelector("#main-content")
+      .innerHTML = responseText;
+  },
+  false);
+});
+
+
+global.$dc = dc;
+
+})(window);
+
+```
 
 ## Dynamically Loading Menu Categories View
 
 [Link to Lecture 61](../course_materials/fullstack-course4/examples/Lecture61/)
 
+How did we get the data?
+- We have a website: https://coursera-jhu-default-rtdb.firebaseio.com/categories.json
+  - We'll query with a firebase app
+
+Your JS only has the same permissions/access that you do. This is what CORS/Origin is for, preventing you from accessing things you shouldn't.
+
+If you have a json in your browser page, you can go to devtools>network and then click the json, and that lets you view it more effectively
+
+The snippet is more like a template with `{{var}}` inserts.
+
+`string.replace(new RegExp(propToReplace, "g"), propValue)` can be used to replace the variable insert tags.
+```js
+(function (global) {
+  var dc = {};
+
+  var homeHtml = "snippets/home-snippet.html";
+  var allCategoriesUrl =
+    "https://coursera-jhu-default-rtdb.firebaseio.com/categories.json";
+  var categoriesTitleHtml = "snippets/categories-title-snippet.html";
+  var categoryHtml = "snippets/category-snippet.html";
+
+  // Convenience function for inserting innerHTML for 'select'
+  var insertHtml = function (selector, html) {
+    var targetElem = document.querySelector(selector);
+    targetElem.innerHTML = html;
+  };
+
+  // Show loading icon inside element identified by 'selector'.
+  var showLoading = function (selector) {
+    var html = "<div class='text-center'>";
+    html += "<img src='images/ajax-loader.gif'></div>";
+    insertHtml(selector, html);
+  };
+
+  // Return substitute of '{{propName}}'
+  // with propValue in given 'string'
+  var insertProperty = function (string, propName, propValue) {
+    var propToReplace = "{{" + propName + "}}";
+    string = string.replace(new RegExp(propToReplace, "g"), propValue);
+    return string;
+  };
+
+  // On page load (before images or CSS)
+  document.addEventListener("DOMContentLoaded", function (event) {
+    // On first load, show home view
+    showLoading("#main-content");
+    $ajaxUtils.sendGetRequest(
+      homeHtml,
+      function (responseText) {
+        document.querySelector("#main-content").innerHTML = responseText;
+      },
+      false
+    );
+  });
+
+  // Load the menu categories view
+  dc.loadMenuCategories = function () {
+    showLoading("#main-content");
+    $ajaxUtils.sendGetRequest(allCategoriesUrl, buildAndShowCategoriesHTML);
+  };
+
+  // Builds HTML for the categories page based on the data
+  // from the server
+  function buildAndShowCategoriesHTML(categories) {
+    // Load title snippet of categories page
+    $ajaxUtils.sendGetRequest(
+      categoriesTitleHtml,
+      function (categoriesTitleHtml) {
+        // Retrieve single category snippet
+        $ajaxUtils.sendGetRequest(
+          categoryHtml,
+          function (categoryHtml) {
+            var categoriesViewHtml = buildCategoriesViewHtml(
+              categories,
+              categoriesTitleHtml,
+              categoryHtml
+            );
+            insertHtml("#main-content", categoriesViewHtml);
+          },
+          false
+        );
+      },
+      false
+    );
+  }
+
+  // Using categories data and snippets html
+  // build categories view HTML to be inserted into page
+  function buildCategoriesViewHtml(
+    categories,
+    categoriesTitleHtml,
+    categoryHtml
+  ) {
+    var finalHtml = categoriesTitleHtml;
+    finalHtml += "<section class='row'>";
+
+    // Loop over categories
+    for (var i = 0; i < categories.length; i++) {
+      // Insert category values
+      var html = categoryHtml;
+      var name = "" + categories[i].name;
+      var short_name = categories[i].short_name;
+      html = insertProperty(html, "name", name);
+      html = insertProperty(html, "short_name", short_name);
+      finalHtml += html;
+    }
+
+    finalHtml += "</section>";
+    return finalHtml;
+  }
+
+  global.$dc = dc;
+})(window);
+
+```
+
 ## Dynamically Loading Single Category View
 
 [Link to Lecture 62](../course_materials/fullstack-course4/examples/Lecture62/)
+
+```js
+(function (global) {
+  var dc = {};
+
+  var homeHtml = "snippets/home-snippet.html";
+  var allCategoriesUrl =
+    "https://coursera-jhu-default-rtdb.firebaseio.com/categories.json";
+  var categoriesTitleHtml = "snippets/categories-title-snippet.html";
+  var categoryHtml = "snippets/category-snippet.html";
+  var menuItemsUrl =
+    "https://coursera-jhu-default-rtdb.firebaseio.com/menu_items/";
+  var menuItemsTitleHtml = "snippets/menu-items-title.html";
+  var menuItemHtml = "snippets/menu-item.html";
+
+  // Convenience function for inserting innerHTML for 'select'
+  var insertHtml = function (selector, html) {
+    var targetElem = document.querySelector(selector);
+    targetElem.innerHTML = html;
+  };
+
+  // Show loading icon inside element identified by 'selector'.
+  var showLoading = function (selector) {
+    var html = "<div class='text-center'>";
+    html += "<img src='images/ajax-loader.gif'></div>";
+    insertHtml(selector, html);
+  };
+
+  // Return substitute of '{{propName}}'
+  // with propValue in given 'string'
+  var insertProperty = function (string, propName, propValue) {
+    var propToReplace = "{{" + propName + "}}";
+    string = string.replace(new RegExp(propToReplace, "g"), propValue);
+    return string;
+  };
+
+  // On page load (before images or CSS)
+  document.addEventListener("DOMContentLoaded", function (event) {
+    // On first load, show home view
+    showLoading("#main-content");
+    $ajaxUtils.sendGetRequest(
+      homeHtml,
+      function (responseText) {
+        document.querySelector("#main-content").innerHTML = responseText;
+      },
+      false
+    );
+  });
+
+  // Load the menu categories view
+  dc.loadMenuCategories = function () {
+    showLoading("#main-content");
+    $ajaxUtils.sendGetRequest(allCategoriesUrl, buildAndShowCategoriesHTML);
+  };
+
+  // Load the menu items view
+  // 'categoryShort' is a short_name for a category
+  dc.loadMenuItems = function (categoryShort) {
+    showLoading("#main-content");
+    $ajaxUtils.sendGetRequest(
+      menuItemsUrl + categoryShort + ".json",
+      buildAndShowMenuItemsHTML
+    );
+  };
+
+  // Builds HTML for the categories page based on the data
+  // from the server
+  function buildAndShowCategoriesHTML(categories) {
+    // Load title snippet of categories page
+    $ajaxUtils.sendGetRequest(
+      categoriesTitleHtml,
+      function (categoriesTitleHtml) {
+        // Retrieve single category snippet
+        $ajaxUtils.sendGetRequest(
+          categoryHtml,
+          function (categoryHtml) {
+            var categoriesViewHtml = buildCategoriesViewHtml(
+              categories,
+              categoriesTitleHtml,
+              categoryHtml
+            );
+            insertHtml("#main-content", categoriesViewHtml);
+          },
+          false
+        );
+      },
+      false
+    );
+  }
+
+  // Using categories data and snippets html
+  // build categories view HTML to be inserted into page
+  function buildCategoriesViewHtml(
+    categories,
+    categoriesTitleHtml,
+    categoryHtml
+  ) {
+    var finalHtml = categoriesTitleHtml;
+    finalHtml += "<section class='row'>";
+
+    // Loop over categories
+    for (var i = 0; i < categories.length; i++) {
+      // Insert category values
+      var html = categoryHtml;
+      var name = "" + categories[i].name;
+      var short_name = categories[i].short_name;
+      html = insertProperty(html, "name", name);
+      html = insertProperty(html, "short_name", short_name);
+      finalHtml += html;
+    }
+
+    finalHtml += "</section>";
+    return finalHtml;
+  }
+
+  // Builds HTML for the single category page based on the data
+  // from the server
+  function buildAndShowMenuItemsHTML(categoryMenuItems) {
+    // Load title snippet of menu items page
+    $ajaxUtils.sendGetRequest(
+      menuItemsTitleHtml,
+      function (menuItemsTitleHtml) {
+        // Retrieve single menu item snippet
+        $ajaxUtils.sendGetRequest(
+          menuItemHtml,
+          function (menuItemHtml) {
+            var menuItemsViewHtml = buildMenuItemsViewHtml(
+              categoryMenuItems,
+              menuItemsTitleHtml,
+              menuItemHtml
+            );
+            insertHtml("#main-content", menuItemsViewHtml);
+          },
+          false
+        );
+      },
+      false
+    );
+  }
+
+  // Using category and menu items data and snippets html
+  // build menu items view HTML to be inserted into page
+  function buildMenuItemsViewHtml(
+    categoryMenuItems,
+    menuItemsTitleHtml,
+    menuItemHtml
+  ) {
+    menuItemsTitleHtml = insertProperty(
+      menuItemsTitleHtml,
+      "name",
+      categoryMenuItems.category.name
+    );
+    menuItemsTitleHtml = insertProperty(
+      menuItemsTitleHtml,
+      "special_instructions",
+      categoryMenuItems.category.special_instructions
+    );
+
+    var finalHtml = menuItemsTitleHtml;
+    finalHtml += "<section class='row'>";
+
+    // Loop over menu items
+    var menuItems = categoryMenuItems.menu_items;
+    var catShortName = categoryMenuItems.category.short_name;
+    for (var i = 0; i < menuItems.length; i++) {
+      // Insert menu item values
+      var html = menuItemHtml;
+      html = insertProperty(html, "short_name", menuItems[i].short_name);
+      html = insertProperty(html, "catShortName", catShortName);
+      html = insertItemPrice(html, "price_small", menuItems[i].price_small);
+      html = insertItemPortionName(
+        html,
+        "small_portion_name",
+        menuItems[i].small_portion_name
+      );
+      html = insertItemPrice(html, "price_large", menuItems[i].price_large);
+      html = insertItemPortionName(
+        html,
+        "large_portion_name",
+        menuItems[i].large_portion_name
+      );
+      html = insertProperty(html, "name", menuItems[i].name);
+      html = insertProperty(html, "description", menuItems[i].description);
+
+      // Add clearfix after every second menu item
+      if (i % 2 != 0) {
+        html +=
+          "<div class='clearfix visible-lg-block visible-md-block'></div>";
+      }
+
+      finalHtml += html;
+    }
+
+    finalHtml += "</section>";
+    return finalHtml;
+  }
+
+  // Appends price with '$' if price exists
+  function insertItemPrice(html, pricePropName, priceValue) {
+    // If not specified, replace with empty string
+    if (!priceValue) {
+      return insertProperty(html, pricePropName, "");
+    }
+
+    priceValue = "$" + priceValue.toFixed(2);
+    html = insertProperty(html, pricePropName, priceValue);
+    return html;
+  }
+
+  // Appends portion name in parens if it exists
+  function insertItemPortionName(html, portionPropName, portionValue) {
+    // If not specified, return original string
+    if (!portionValue) {
+      return insertProperty(html, portionPropName, "");
+    }
+
+    portionValue = "(" + portionValue + ")";
+    html = insertProperty(html, portionPropName, portionValue);
+    return html;
+  }
+
+  global.$dc = dc;
+})(window);
+```
 
 ## Changing `active` Button Style Through Javascript
 
 [Link to Lecture 63](../course_materials/fullstack-course4/examples/Lecture63/)
 
+A process for dynamically adding/removing `active` class
+
+```js
+// Remove the class 'active' from home and switch to Menu button
+  var switchMenuToActive = function () {
+    // Remove 'active' from home button
+    var classes = document.querySelector("#navHomeButton").className;
+    classes = classes.replace(new RegExp("active", "g"), "");
+    document.querySelector("#navHomeButton").className = classes;
+
+    // Add 'active' to menu button if not already there
+    classes = document.querySelector("#navMenuButton").className;
+    if (classes.indexOf("active") == -1) {
+      classes += " active";
+      document.querySelector("#navMenuButton").className = classes;
+    }
+  };
+```
+
+
+
 ## Check out the final deployed site
 
-[Link to Lecture 64](../course_materials/fullstack-course4/examples/Lecture64/)
+[Part 1](https://jhu-ep-coursera.github.io/fullstack-course4/examples/Lecture63/after/#)
+[Part 2 Angular](http://www.davidchuschinabistro.com/)
