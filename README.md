@@ -21,6 +21,12 @@ Frontend Web App Development
     - [Code](./module_4/solution)
     - [Instructions](./module_4/solution/README.md)
     - [Site](https://deleomike.github.io/EN.605.787/module_4/solution/)
+- Module 5 - Using Javascript to Build Web Applications
+  - [Lesson Notes](./module_5/README.md)
+  - HW Solution
+    - [Code](./module_5/solution)
+    - [Instructions](./module_5/solution/README.md)
+    - [Site](https://deleomike.github.io/EN.605.787/module_5/solution/)
 
 Course Lecture Materials
 
