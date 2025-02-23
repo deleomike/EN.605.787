@@ -672,6 +672,16 @@ for (var name in names2) {
 
 [Link to Lecture 51](../course_materials/fullstack-course4/examples/Lecture51/)
 
+Closures are very important.
+
+For this example, the multiplier will multiply with the value enclosed with the factory input.
+
+When a function is executed it has access to
+1. Its own execution context
+2. A special `this` variable
+3. A reference to its outer lexical environment
+
+This is a way to "trap" or close in variables into the execution environment of a function.
 ```js
 // Closures
 function makeMultiplier (multiplier) {
