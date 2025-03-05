@@ -24,16 +24,11 @@ function LunchCheckController($scope) {
             // var num_items = items.length;
             var num_items = 0;
 
-            console.log(items[1] == 0)
-
             for (var i = 0; i < items.length; i++){
                 if (items[i] != 0){
                     num_items++;
                 }
             }
-
-            console.log(items);
-            console.log(num_items);
 
             if (num_items <= 3) {
                 result = "Enjoy!";
