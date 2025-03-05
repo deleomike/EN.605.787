@@ -27,6 +27,12 @@ Frontend Web App Development
     - [Code](./module_5/solution)
     - [Instructions](./module_5/solution/README.md)
     - [Site](https://deleomike.github.io/EN.605.787/module_5/solution/)
+- Module 6 - Introduction to AngularJS
+  - [Lesson Notes](./module_6/README.md)
+  - HW Solution
+    - [Code](./module_6/solution)
+    - [Instructions](./module_6/solution/README.md)
+    - [Site](https://deleomike.github.io/EN.605.787/module_6/solution/)
 
 Course Lecture Materials
 
