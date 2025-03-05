@@ -49,6 +49,10 @@ Here is what you will need to do to complete the assignment:
 - [x] Create and implement properties and method(s) in order to implement the functionality outlined in General Idea section above.
   - [x] Make sure that none of your variables/objects/functions "leak to the global scope". (Hint: IIFE)
 - [x] After you are done and satisfied with your solution, don't forget to add/commit/push your code to your repository.
+- [x] The first 2 of these can be done in a more advanced way, but can also be done with just what we've learned so far!
+  - [x] If the message is "Enjoy!" or "Too much!", make the font color green. If the message is "Please enter data first", make the font color red.
+  - [x] If the message is "Enjoy!" or "Too much!", make the border color around the textbox green. If the message is "Please enter data first", make the border color around the textbox red.
+  - [x] Implement this case `item 1, item2,,item3` or this case `item 1, item2, ,item3` as not counting an 'empty' item towards the count of how many items there are in the list. Please *make sure* to put a comment somewhere next to the input textbox stating that you do NOT consider an empty item, i.e., `, ,` as an item towards to the count, so whoever is grading your assignment doesn't erroneously mark that as an error.
 
 ## **IMPORTANT REMINDERS:**
 * Closely follow the submission guidelines for this assignment on Coursera.org
@@ -57,8 +61,3 @@ Here is what you will need to do to complete the assignment:
 * This assignment will be peer-reviewed (and graded). The guidance will be given such that if submission instructions are not followed, the assignment is to be failed. This includes providing the wrong URL for your deployment. Following instructions is very much part of software development. After all, that's what software requirements are - instructions to follow.
 
 
-## BONUS (OPTIONAL AND NOT GRADED)
-The first 2 of these can be done in a more advanced way, but can also be done with just what we've learned so far!
-- [x] If the message is "Enjoy!" or "Too much!", make the font color green. If the message is "Please enter data first", make the font color red.
-- [x] If the message is "Enjoy!" or "Too much!", make the border color around the textbox green. If the message is "Please enter data first", make the border color around the textbox red.
-- [ ] Implement this case `item 1, item2,,item3` or this case `item 1, item2, ,item3` as not counting an 'empty' item towards the count of how many items there are in the list. Please *make sure* to put a comment somewhere next to the input textbox stating that you do NOT consider an empty item, i.e., `, ,` as an item towards to the count, so whoever is grading your assignment doesn't erroneously mark that as an error.
