@@ -33,6 +33,12 @@ Frontend Web App Development
     - [Code](./module_6/solution)
     - [Instructions](./module_6/solution/README.md)
     - [Site](https://deleomike.github.io/EN.605.787/module_6/solution/)
+- Module 7 - Filters, Digest Cycle, Controller Inheritance, and Custom Services
+  - [Lesson Notes](./module_7/README.md)
+  - HW Solution
+    - [Code](./module_7/solution)
+    - [Instructions](./module_7/solution/README.md)
+    - [Site](https://deleomike.github.io/EN.605.787/module_7/solution/)
 
 Course Lecture Materials
 
