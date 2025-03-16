@@ -10,7 +10,8 @@ angular.module('ShoppingListCheckOff', [])
 
 function AngularCurrencyFilter() {
     return function (input) {
-      return "$$$" + input;
+        // Return the currency, with two decimals and $$$
+        return "$$$" + input.toFixed(2);
     }
 }
 
@@ -27,9 +28,9 @@ function ToBuyController(ShoppingListCheckOffService) {
 
 AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
 function AlreadyBoughtController(ShoppingListCheckOffService) {
-    var bought = this;
+    var boughtItems = this;
 
-    bought.items = ShoppingListCheckOffService.bought;
+    boughtItems.items = ShoppingListCheckOffService.bought;
 }
 
 function ShoppingListCheckOffService() {
@@ -37,8 +38,11 @@ function ShoppingListCheckOffService() {
 
     service.bought = [];
     service.to_buy = [
-        {"name": "cookies", "quantity": 10, "pricePerItem": 3},
-        {"name": "water", "quantity": 20, "pricePerItem": 1}
+        {"name": "cookies", "quantity": 10, "pricePerItem": 3.00},
+        {"name": "sparkling waters", "quantity": 20, "pricePerItem": 1.00},
+        {"name": "pizzas", "quantity": 3, "pricePerItem": 19.99},
+        {"name": "bananas", "quantity": 99, "pricePerItem": 0.99},
+        {"name": "sushi rolls", "quantity": 9, "pricePerItem": 9.99}
     ];
 
     service.buyItem = function(index) {
