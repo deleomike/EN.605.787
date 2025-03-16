@@ -4,8 +4,15 @@
 angular.module('ShoppingListCheckOff', [])
 .controller('ToBuyController', ToBuyController)
 .controller('AlreadyBoughtController', AlreadyBoughtController)
-.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
+.service('ShoppingListCheckOffService', ShoppingListCheckOffService)
+.filter('angularCurrency', AngularCurrencyFilter);
 
+
+function AngularCurrencyFilter() {
+    return function (input) {
+      return "$$$" + input;
+    }
+}
 
 ToBuyController.$inject = ['ShoppingListCheckOffService'];
 function ToBuyController(ShoppingListCheckOffService) {
@@ -30,8 +37,8 @@ function ShoppingListCheckOffService() {
 
     service.bought = [];
     service.to_buy = [
-        {"name": "cookies", "quantity": 10},
-        {"name": "water", "quantity": 20}
+        {"name": "cookies", "quantity": 10, "pricePerItem": 3},
+        {"name": "water", "quantity": 20, "pricePerItem": 1}
     ];
 
     service.buyItem = function(index) {

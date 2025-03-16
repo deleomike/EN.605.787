@@ -20,6 +20,9 @@
       button > span {
         color: green;
       }
+      input {
+        width: 50px;
+      }
     </style>
     <script src="angular.min.js"></script>
     <script src="main.js"></script>
@@ -35,7 +38,8 @@
      <h2>To Buy:</h2>
      <ul>
        <li ng-repeat="item in buyItems.to_buy"> 
-        Buy {{item.quantity}} {{item.name}}
+        Buy {{item.name}}
+        <input ng-model="item.quantity" value="{{item.quantity}}">
         <button class="btn btn-default" ng-click="buyItems.buy($index)"><span class="glyphicon glyphicon-ok"></span> Bought</button>
        </li>
      </ul>
@@ -46,7 +50,9 @@
     <div class="col-md-6" ng-controller="AlreadyBoughtController as bought">
      <h2>Already Bought:</h2>
      <ul>
-       <li ng-repeat="item in bought.items">Bought {{item.quantity}} {{item.name}}</li>
+       <li ng-repeat="item in bought.items">
+        Bought {{item.quantity}} {{item.name}} for total price of {{item.quantity*item.pricePerItem | angularCurrency }}
+       </li>
      </ul>
      <div ng-if="bought.items.length===0" class="emptyMessage">Nothing bought yet.</div>
     </div>
