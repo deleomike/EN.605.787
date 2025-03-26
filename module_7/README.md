@@ -777,10 +777,80 @@ function ShoppingListService() {
 
 ### Custom Services with .factory()
 
-[Link to Lecture 24](../course_materials/fullstack-course5/examples/Lecture24/)
+[Link to Lecture 21](../course_materials/fullstack-course5/examples/Lecture21/)
+
+The factory design pattern consists of a central place where you produce new objects or functions. It can create dynamically customizable services.
+
+.factory is not just another way to create a service but it can be
+.service is a factory (of a kind) where it just creates a singleton
+
+with factory
+`.factory('CustomService', CustomService)`
+The function is similar, but then the name is what you use to inject into controllers and services
+
+Return Object:
+```js
+function CustomService() {
+    var factory = function () {
+        // We're calling new, so we decide how the service is created
+        return new service();
+    }
+
+    // Return the service
+    return factory;
+}
+```
+
+Return Object Literal:
+```js
+function CustomService() {
+    var factory = {
+        getSomeService: function () {
+            // We're calling new, so we decide how the service is created
+            return new service();
+        }
+    };
+
+    // Return an object literal
+    return factory;
+}
+```
+
+Its the difference of returning an object with the function being able to be called, versus the defined service instance
 ### Custom Services with .provider()
 
-[Link to Lecture 25](../course_materials/fullstack-course5/examples/Lecture25/)
+[Link to Lecture 22](../course_materials/fullstack-course5/examples/Lecture22/)
+
+`.factory('CustomService', CustomServiceProvider)`
+
+```js
+function ShoppingListServiceProvider() {
+  var provider = this;
+
+  provider.defaults = {
+    maxItems: 10
+  };
+
+  provider.$get = function () {
+    var shoppingList = new ShoppingListService(provider.defaults.maxItems);
+
+    return shoppingList;
+  };
+}
+```
+
+providers provide services with settings while factories create a service
+
+You can use the provider with a `.config`, and set the default provider params. This gets called before anything else
+
+.provider is the most verbose and flexible factory pattern. can configure the factory at app-start and on creation of services
+
 ## ng-show and ng-hide
 
-[Link to Lecture 26](../course_materials/fullstack-course5/examples/Lecture26/)
+[Link to Lecture 23](../course_materials/fullstack-course5/examples/Lecture23/)
+
+pretty self explanatory
+
+ng-if will take it out of the DOM tree
+
+show/hide do no remove from the DOM, but apply a css hide
