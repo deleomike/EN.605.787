@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Narrow Down Your Menu Choice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+<body ng-app="NarrowItDownApp">
+   <div class="container" ng-controller="NarrowItDownController as ctrl">
+      <h1>Narrow Down Your Chinese Menu Choice</h1>
+
+      <!-- I added a container here because the margins and formatting were weird for the form group -->
+      <div class="container">
+        <div class="form-group" style="padding-top:10px;">
+          <input ng-model="ctrl.searchTerm" type="text" placeholder="search term" class="form-control">
+        </div>
+  
+        <div class="form-group narrow-button" style="margin-top: -15px;">
+          <button ng-click="ctrl.getMatchedMenuItems();" class="btn btn-primary">Narrow It Down For Me!</button>
+        </div>
+      </div>
+
+
+      <div class="container row">
+        <found-items found="ctrl.found" on-remove="ctrl.removeItem(index)"></found-items>
+      </div>
+      
+  </div>
+
+</body>
+</html>
