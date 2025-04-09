@@ -29,8 +29,6 @@ function NarrowItDownController(MenuSearchService) {
     ctrl.found;
     ctrl.searchTerm;
 
-    console.log(ctrl.found)
-
     ctrl.removeItem = function(index) {
         ctrl.found.splice(index, 1);
     };
@@ -54,17 +52,13 @@ function MenuSearchService($http, ApiBasePath) {
             method: "GET",
             url: (ApiBasePath + "/menu_items.json")
         }).then(function (result){
-            // TODO: Process Results
 
             var foundItems = [];
 
-            console.log(result.data);
             for (let key in result.data) {
-                console.log(key);
                 var menu_items = result.data[key]["menu_items"];
                 for (let i = 0; i < menu_items.length; i++) {
-                    console.log(i);
-                    if (menu_items[i]["description"].includes(searchTerm)) {
+                    if (menu_items[i]["description"].indexOf(searchTerm) != -1) {
                         foundItems.push(menu_items[i]);
                     }
                 }

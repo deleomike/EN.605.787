@@ -2,12 +2,12 @@
     <p ng-if="ctrl.found.length==0">
         Nothing found
     </p>
-    <ol ng-if="ctrl.found.length>0">
+    <ul ng-if="ctrl.found.length>0">
         <li ng-repeat="item in ctrl.found"> 
             <button ng-click="ctrl.onRemove({index: $index});">Don't want this one!</button>
             {{item.name}},
             {{item.short_name}},
             {{item.description}}
         </li>
-    </ol>
+    </ul>
 </div>
