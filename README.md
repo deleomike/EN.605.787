@@ -39,6 +39,12 @@ Frontend Web App Development
     - [Code](./module_7/solution)
     - [Instructions](./module_7/solution/README.md)
     - [Site](https://deleomike.github.io/EN.605.787/module_7/solution/)
+- Module 8
+  - [Lesson Notes](./module_8/README.md)
+  - HW Solution
+    - [Code](./module_8/solution)
+    - [Instructions](./module_8/solution/README.md)
+    - [Site](https://deleomike.github.io/EN.605.787/module_8/solution/)
 
 Course Lecture Materials
 
