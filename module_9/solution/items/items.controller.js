@@ -6,26 +6,9 @@ angular.module('MenuApp')
 
 ItemsController.$inject = ['data'];
 function ItemsController (data) {
-    // console.log(category)
     var itemsCtrl = this;
-    // $ctrl.category = category_name;
 
-    console.log(data)
     itemsCtrl.data = data;
-    // $ctrl.name;
-
-    // $ctrl.$onInit = function () {
-    //     $ctrl.getItemsForCategory();
-    // };
-
-    // $ctrl.getItemsForCategory = function () {
-    //     MenuDataService.getItemsForCategory($ctrl.category)
-    //     .then(function (result) {
-    //         $ctrl.items = result.data.menu_items;
-    //         $ctrl.name = result.data.category.name;
-    //         console.log(result.data)
-    //     });
-    // }
 }
 
 })();

@@ -1,33 +1,10 @@
-<!-- <style>
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-    
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-    }
-    
-    tr:nth-child(even) {
-      background-color: #dddddd;
-    }
-</style> -->
-
 <div>
-    <h2>
-        <!-- {{ $ctrl.name }} -->
-    </h2>
     <table>
         <tr>
             <th>Price</th>
             <th>Name</th>
             <th>Description</th>
         </tr>
-        Hello
-        {{$ctrl.data}} world
         <tr ng-repeat="item in $ctrl.data">
             <td>${{ item.price_large }}</td>
             <td>{{ item.name }}</td>
