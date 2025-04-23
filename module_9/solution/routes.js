@@ -26,21 +26,24 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
     .state('items', {
         url: '/items/{cat}',
-        template: '<items></items>',
+        templateUrl: "items/items.template.html",
+        // template: '<items></items>',
         controller: 'ItemsController as $ctrl',
         resolve: {
             items: ['$stateParams', 'MenuDataService', function($stateParams, MenuDataService) {
-                return MenuDataService.getItemsForCategory("SP")
+
+                console.log($stateParams)
+                return MenuDataService.getItemsForCategory($stateParams.cat)
                 .then(function (result) {
-                    console.log("GOT")
-                    console.log(result)
+                    console.log("GOT");
+                    console.log(result);
                     return result.data.menu_items;
-                })
+                });
             }],
-            category_name: ['$stateParams', function($stateParams) {
-                console.log("CAT")
-                return "SP"
-            }]
+            // category_name: ['$stateParams', function($stateParams) {
+            //     console.log("CAT");
+            //     return "SP";
+            // }]
             // item: ['$stateParams', 'ShoppingListService',
             //       function ($stateParams, ShoppingListService) {
             //         return ShoppingListService.getItems()
@@ -58,7 +61,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
         //     //       return $stateParams.category;
         //     //     }],
         // }
-    })
+    });
 
     // Premade list page
     // .state('mainList', {
