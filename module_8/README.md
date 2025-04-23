@@ -520,7 +520,135 @@ function MyDirective() {
 }
 ```
 
+Reference the method, and provide a placeholder value (not a value, a name)
+
+```html
+<div ng-controller= "Controller as ctri"›
+  <my-directive method="ctrl.method(myArg)">
+  </my-directive> 
+</div>
+```
+
+trigger with `dirCtrl.myMethod({myArg: 'v1'})`
+
+We're passing a map object, not a simple arg
+
+1. Method is mapped to the ddo value
+2. Method is registered with a value placeholder
+3. Method is invoked as the key for the ddo function item with the input as a mapped input with the placeholder values
+
+If your object is outside of its context and you need to get that you can do
+
+```js
+var describe = variable.describe;
+describe();
+describe.call(variable);
+```
+
 
 ## Manipulating the DOM with link
 
+[Link to Lecture 31](../course_materials/fullstack-course5/examples/Lecture31/)
+
+
+The link function is always used with special parameters, so we don't specify parameters here
+
+```js
+function MyDirective() {
+    var ddo = {
+        scope: {...},
+        link: LinkFunction,
+        ...
+    };
+
+    return ddo;
+}
+```
+
+```js
+function LinkFunction(scope, element, attrs, controller) {
+  ...
+}
+```
+
+We can manually use the watcher function to watch the value of the function `cookiesInList`.
+
+```js
+function ShoppingListDirectiveLink(scope, element, attrs, controller) {
+  console.log("Link scope is: ", scope);
+  console.log("Controller instance is: ", controller);
+  console.log("Element is: ", element);
+
+  scope.$watch('list.cookiesInList()', function (newValue, oldValue) {
+    console.log("Old value: ", oldValue);
+    console.log("New value: ", newValue);
+
+    if (newValue === true) {
+      displayCookieWarning();
+    }
+    else {
+      removeCookieWarning();
+    }
+
+  });
+
+  function displayCookieWarning() {
+    // Using Angluar jqLite
+    // var warningElem = element.find("div");
+    // console.log(warningElem);
+    // warningElem.css('display', 'block');
+
+    // If jQuery included before Angluar
+    var warningElem = element.find("div.error");
+    warningElem.slideDown(900);
+  }
+
+
+  function removeCookieWarning() {
+    // Using Angluar jqLite
+    // var warningElem = element.find("div");
+    // warningElem.css('display', 'none');
+
+    // If jQuery included before Angluar
+    var warningElem = element.find("div.error");
+    warningElem.slideUp(900);
+  }
+}
+```
+
+
+Angular uses a subset of JQuery called [JQLite](https://gist.github.com/esfand/9638882)
+
+You can import jqeury before angular in the html to override the use of full jqeury.
+
 ## Using Directive’s transclude to Wrap Other Elements
+
+```js
+function MyDirective() {
+    var ddo = {
+        transclude: true,
+        ...
+    };
+
+    return ddo;
+}
+```
+
+Then wrap some parent content
+
+```html
+<my-directive>
+  <span>
+    WARNNG WARNING {{ ctrl.someProp }}
+  </span>
+</my-directive>
+```
+
+then put a placeholder of where to put that content in the directive template
+
+```html
+<div>
+  ...
+  <div ng-transclude></div>
+</div>
+```
