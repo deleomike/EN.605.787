@@ -26,11 +26,11 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
     .state('items', {
         url: '/items/{cat}',
-        templateUrl: "items/items.template.html",
-        // template: '<items></items>',
-        controller: 'ItemsController as $ctrl',
+        // templateUrl: "items/items.html",
+        template: '<items data="itemsCtrl.data"></items>',
+        controller: 'ItemsController as itemsCtrl',
         resolve: {
-            items: ['$stateParams', 'MenuDataService', function($stateParams, MenuDataService) {
+            data: ['$stateParams', 'MenuDataService', function($stateParams, MenuDataService) {
 
                 console.log($stateParams)
                 return MenuDataService.getItemsForCategory($stateParams.cat)

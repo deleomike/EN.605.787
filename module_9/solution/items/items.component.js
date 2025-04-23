@@ -4,12 +4,12 @@
 angular.module('MenuApp')
 .component('items', {
     templateUrl: 'items/items.template.html',
-    controller: 'ItemsController',
-    controllerAs: '$ctrl',
+    // controller: 'ItemsController',
+    // controllerAs: '$ctrl',
     bindings: {
-        items: '<',
+        data: '<',
         // name: '<',
-        category: '<'
+        // category: '<',
     }
 });
 
