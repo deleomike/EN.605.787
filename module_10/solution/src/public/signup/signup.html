@@ -67,8 +67,8 @@
             name="short_name" 
             placeholder="Favorite Dish" 
             pattern="([A-Z]+)(\d+)"
-            ng-change="signup.validateShortNameUpdateForm()"
             minlength="2"
+            validate-short-name
             required>
         <span
             ng-if="
@@ -76,17 +76,13 @@
             && signupForm.short_name.$touched">
             No such menu number exists
         </span>
-        {{signupForm.short_name.$invalid}}
-        {{$signupForm.short_name.$error}}
         <br>
 
         <button
-        ng-disabled="signupForm.$invalid"
+        ng-disabled="signupForm.$invalid || signupForm.short_name.$pending.shortName"
         ng-click="signup.submit()">Submit</button>
 
         <br>
-
-        {{signupForm.$valid}}
 
         <span style="margin-top: 10px;" ng-if="signup.completed">
             Your information has been saved.
