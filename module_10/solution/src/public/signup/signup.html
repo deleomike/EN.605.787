@@ -1,0 +1,96 @@
+<div ng-controller="SignupController as signup">
+    <fieldset>
+        <form name="signupForm" novalidate>
+        <input 
+            ng-model="signup.user.first"
+            type="text" 
+            name="first" 
+            placeholder="First Name" 
+            minlength="3"
+            ng-maxlength="20"
+            required>
+        <span
+            ng-if="(signupForm.first.$error.minlength || signupForm.first.$error.required) && signupForm.first.$touched">
+            First Name must be at least 3 characters long
+        </span>
+        <span
+            ng-if="signupForm.first.$error.maxlength && signupForm.first.$touched">
+            First Name must be less than 20 characters long
+        </span>
+        <br>
+
+        <input 
+            ng-model="signup.user.last"
+            type="text" 
+            name="last" 
+            placeholder="Last Name" 
+            minlength="3"
+            ng-maxlength="20"
+            required>
+        <span
+            ng-if="(signupForm.last.$error.minlength || signupForm.last.$error.required) && signupForm.last.$touched">
+            First Name must be at least 3 characters long
+        </span>
+        <span
+            ng-if="signupForm.last.$error.maxlength && signupForm.last.$touched">
+            First Name must be less than 20 characters long
+        </span>
+        <br>
+
+        <input 
+            type="email" 
+            name="email" 
+            placeholder="Email"
+            ng-model="signup.user.email"
+            required>
+        <span ng-if="signupForm.email.$invalid && signupForm.email.$touched">
+            Must be a valid email address: handle@domain format
+        </span>
+        <br>
+
+        <input 
+            type="text" 
+            name="phone" 
+            placeholder="Phone ###-###-####"
+            ng-model="signup.user.phone"
+            pattern="(\d{3})-(\d{3})-(\d{4})"
+            required>
+        <span ng-if="signupForm.phone.$invalid && signupForm.phone.$touched">
+            Phone must be in the format ###-###-####.
+        </span>
+        {{signupForm.phone.$error}}
+        <br>
+
+        <input 
+            ng-model="signup.user.short_name"
+            type="text" 
+            name="short_name" 
+            placeholder="Favorite Dish" 
+            pattern="([A-Z]+)(\d+)"
+            ng-change="signup.validateShortNameUpdateForm()"
+            minlength="2"
+            required>
+        <span
+            ng-if="
+            (signupForm.short_name.$invalid) 
+            && signupForm.short_name.$touched">
+            No such menu number exists
+        </span>
+        {{signupForm.short_name.$invalid}}
+        {{$signupForm.short_name.$error}}
+        <br>
+
+        <button
+        ng-disabled="signupForm.$invalid"
+        ng-click="signup.submit()">Submit</button>
+
+        <br>
+
+        {{signupForm.$valid}}
+
+        <span style="margin-top: 10px;" ng-if="signup.completed">
+            Your information has been saved.
+        </span>
+        </form>    
+    </fieldset>
+</div>

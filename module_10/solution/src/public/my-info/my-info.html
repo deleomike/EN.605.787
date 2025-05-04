@@ -1,0 +1,30 @@
+<div class="container" ng-controller="MyInfoController as info">
+
+    <div class="col-md6" ng-if="info.first_name === undefined">
+        Not Signed Up Yet. 
+        <a ui-sref="public.signup">Sign up Now!</a>
+    </div>
+
+    <div class="col-md6" ng-if="info.first_name !== undefined">
+        <div class="row">
+            <h1>
+                Welcome {{ info.first_name }} {{ info.last_name }}
+            </h1>
+        </div>
+
+        <h2>Your information</h2>
+
+        Email: {{ info.email }}
+        <br>
+        Phone Number: {{ info.phone_number }}
+
+        <h2>Your favorite meal.</h2>
+
+        <menu-item
+                menu-item="info.menuItem"
+                category-short-name="info.category">
+        </menu-item>
+    </div>
+
+
+</div>
